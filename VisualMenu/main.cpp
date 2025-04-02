@@ -1,23 +1,39 @@
 #include "VisualMenu.h"
 
-void func(int i)
+int func(int& i)
 {
 	std::cout << "Yes" << std::endl;
 
+	i++;
+
 	_getch();
 
-	return;
+	return 1;
+}
+
+int func2(int& i)
+{
+	std::cout << i << std::endl;
+
+	_getch();
+
+	return 1;
 }
 
 int main()
 {
-	Button <void, int> obj = {func};
+	int i = 0;
 
-	VisualMenu <void, int> menu;
+	Button <> obj = {func};
+
+	Button <> obj2 = {2, 2, "de", func2};
+
+	VisualMenu <> menu(i);
 
 	menu.addElement(obj);
+	menu.addElement(obj2);
 
-	menu.update();
+	menu.openMenu();
 
 	return 0;
 }

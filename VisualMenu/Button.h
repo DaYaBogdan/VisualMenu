@@ -3,7 +3,7 @@
 
 #include "Label.h"
 
-template <class out, class in>
+template <class in = int&, class out = int>
 class Button :
 	public Label
 {

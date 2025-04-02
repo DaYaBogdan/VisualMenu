@@ -5,17 +5,26 @@
 #include <list>
 #include <conio.h>
 
-template <class out, class in> class VisualMenu
+#define EXIT_KEY 27
+#define LIST_NEXT_KEY 80
+#define LIST_LAST_KEY 72
+#define EXECUTE_KEY 13
+
+template <class in = int&, class out = int> class VisualMenu
 {
 public:
 
 	VisualMenu();
+	VisualMenu(in obj);
 	~VisualMenu();
 
-	int update();
+	out openMenu();
+
+	int setInObject(in obj);
+	out getOutObject();
 
 	int addElement(Label obj);
-	int addElement(Button <out, in> obj);
+	int addElement(Button <in, out> obj);
 
 private:
 
@@ -27,9 +36,13 @@ private:
 	int execute();
 
 	int cursor;
+	bool isOpened;
+
+	in inObject;
+	out outObject;
 
 	std::list <Label> labels;
-	std::list <Button <out, in>> buttons;
+	std::list <Button <in, out>> buttons;
 };
 
 #include "VisualMenu_impl.h"

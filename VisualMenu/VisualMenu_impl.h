@@ -3,34 +3,43 @@
 
 #include "VisualMenu.h"
 
-template <class out, class in> 
-int VisualMenu<out, in>::update()
-{
+template <class in, class out>
+out VisualMenu<in, out>::openMenu() 
+{ 
+	isOpened = true; 
 	hideCursor();
-	while (1)
+
+	while (isOpened)
 	{
 		system("cls");
 		print();
 		moveCursor();
 	}
-}
+	return outObject;
+};
 
-template <class out, class in> 
-int VisualMenu<out, in>::addElement(Label obj)
+template <class in, class out>
+int VisualMenu<in, out>::setInObject(in obj) { inObject = obj; return 0; };
+
+template <class in, class out>
+out VisualMenu<in, out>::getOutObject() { return outObject; };
+
+template <class in, class out>
+int VisualMenu<in, out>::addElement(Label obj)
 {
 	labels.push_back(obj);
 	return 0;
 };
 
-template <class out, class in> 
-int VisualMenu<out, in>::addElement(Button <out, in> obj)
+template <class in, class out>
+int VisualMenu<in, out>::addElement(Button <in, out> obj)
 {
 	buttons.push_back(obj);
 	return 0;
 };
 
-template <class out, class in> 
-int VisualMenu<out, in>::print()
+template <class in, class out>
+int VisualMenu<in, out>::print()
 {
 	int i = 0;
 	HANDLE handler = GetStdHandle(STD_OUTPUT_HANDLE);
@@ -38,7 +47,7 @@ int VisualMenu<out, in>::print()
 	for (Label& elem : labels)
 		elem.print();
 
-	for (Button<out, in>& elem : buttons)
+	for (Button<in, out>& elem : buttons)
 	{
 		SetConsoleTextAttribute(handler, 8);
 		if (i == cursor)
@@ -51,52 +60,54 @@ int VisualMenu<out, in>::print()
 	return 0;
 };
 
-template <class out, class in> 
-int VisualMenu<out, in>::hideCursor()
+template <class in, class out>
+int VisualMenu<in, out>::hideCursor()
 {
 	CONSOLE_CURSOR_INFO cursorInfo;
 	GetConsoleCursorInfo(GetStdHandle(STD_OUTPUT_HANDLE), &cursorInfo);
-	cursorInfo.bVisible = FALSE;  // Скрываем курсор
+	cursorInfo.bVisible = FALSE;
 	SetConsoleCursorInfo(GetStdHandle(STD_OUTPUT_HANDLE), &cursorInfo);
 	return 0;
 };
 
-template <class out, class in>
-int VisualMenu<out, in>::moveCursor()
+template <class in, class out>
+int VisualMenu<in, out>::moveCursor()
 {
 	int i = (int)_getch();
 
 	switch (i)
 	{
-	case 80:
+	case EXIT_KEY:
+		isOpened = false;
+		break;
+	case LIST_NEXT_KEY:
 		++cursor;
 		if (cursor >= buttons.size()) cursor = 0;
 		break;
-	case 72:
+	case LIST_LAST_KEY:
 		--cursor;
 		if (cursor < 0) cursor = buttons.size() - 1;
 		break;
-	case 13:
+	case EXECUTE_KEY:
 		execute();
 		break;
 	case 0 || 0xE0:
 		moveCursor();
-	default:
 		break;
 	}
 
 	return 0;
 };
 
-template <class out, class in>
-int VisualMenu<out, in>::execute()
+template <class in, class out>
+int VisualMenu<in, out>::execute()
 {
-	for (Button<out, in>& elem : buttons)
+	for (Button<in, out>& elem : buttons)
 	{
 		if (!cursor)
 		{
 			system("cls");
-			objects = iter->callFunction(objects);
+			elem.callFunction(inObject);
 			break;
 		}
 		--cursor;
@@ -104,10 +115,13 @@ int VisualMenu<out, in>::execute()
 	return 0;
 };
 
-template <class out, class in>
-VisualMenu<out, in>::VisualMenu() : cursor(0) {}
+template <class in, class out>
+VisualMenu<in, out>::VisualMenu() : cursor(0) {}
 
-template <class out, class in>
-VisualMenu<out, in>::~VisualMenu() {}
+template <class in, class out>
+VisualMenu<in, out>::VisualMenu(in obj) : inObject(obj) {};
+
+template <class in, class out>
+VisualMenu<in, out>::~VisualMenu() {}
 
 #endif
