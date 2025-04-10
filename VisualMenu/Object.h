@@ -6,11 +6,18 @@
 class Object
 {
 public:
-	Object();
-	Object(short x, short y);
-	~Object();
+	Object() : x(0), y(0) {};
 
-	int GoToXY();
+	Object(short _x, short _y) : x(_x), y(_y){};
+
+	~Object() {};
+
+	int GoToXY() 
+	{
+		HANDLE hConsole = GetStdHandle(STD_OUTPUT_HANDLE);
+		SetConsoleCursorPosition(hConsole, { x, y });
+		return 0;
+	};
 
 private:
 	short x;

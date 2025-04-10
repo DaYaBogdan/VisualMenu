@@ -23,13 +23,16 @@ int func2(int& i)
 int main()
 {
 	int i = 0;
+	 
+	Label label = { 2 , 3, "Label"};
 
-	Button <> obj = {func};
+	Button <> obj = {2, 1, "func1", func};
 
-	Button <> obj2 = {2, 2, "de", func2};
+	Button <> obj2 = {2, 2, "func2", func2};
 
 	VisualMenu <> menu(i);
 
+	menu.addElement(label);
 	menu.addElement(obj);
 	menu.addElement(obj2);
 

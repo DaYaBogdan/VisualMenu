@@ -128,15 +128,14 @@
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClInclude Include="Button.h" />
+    <ClInclude Include="Function.h" />
     <ClInclude Include="Label.h" />
     <ClInclude Include="VisualMenu.h" />
     <ClInclude Include="Object.h" />
   </ItemGroup>
   <ItemGroup>
-    <ClCompile Include="Label.cpp" />
     <ClCompile Include="main.cpp" />
     <ClCompile Include="VisualMenu_impl.h" />
-    <ClCompile Include="Object.cpp" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

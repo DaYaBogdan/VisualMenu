@@ -8,11 +8,18 @@ class Label :
     protected Object
 {
 public:
-    Label();
-    Label(short _x, short _y, std::string _name);
-    ~Label();
+	Label() : Object(), name("default") {};
 
-    int print();
+	Label(short _x, short _y, std::string _name) : Object(_x, _y), name(_name) {};
+
+	~Label() {};
+
+	int print()
+	{
+		GoToXY();
+		std::cout << name;
+		return 0;
+	}
 
 private:
     std::string name;
