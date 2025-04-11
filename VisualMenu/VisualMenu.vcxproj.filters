@@ -32,11 +32,11 @@
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
-    <ClCompile Include="main.cpp">
-      <Filter>Исходные файлы</Filter>
-    </ClCompile>
     <ClCompile Include="VisualMenu_impl.h">
       <Filter>Файлы заголовков</Filter>
     </ClCompile>
+  </ItemGroup>
+  <ItemGroup>
+    <Text Include="C:\Users\Honor\source\repos\DaYaBogdan\VisualMenu\VisualMenu\ReadMe.txt" />
   </ItemGroup>
 </Project>

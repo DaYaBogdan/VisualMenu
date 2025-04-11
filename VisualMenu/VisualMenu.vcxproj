@@ -134,8 +134,10 @@
     <ClInclude Include="Object.h" />
   </ItemGroup>
   <ItemGroup>
-    <ClCompile Include="main.cpp" />
     <ClCompile Include="VisualMenu_impl.h" />
+  </ItemGroup>
+  <ItemGroup>
+    <Text Include="C:\Users\Honor\source\repos\DaYaBogdan\VisualMenu\VisualMenu\ReadMe.txt" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">
